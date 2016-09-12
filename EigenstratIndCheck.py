@@ -8,6 +8,8 @@ parser.add_argument("-c", "--Check", type=argparse.FileType('r'), metavar="<INPU
 
 args = parser.parse_args()
 
+o = sys.stdout
+
 if args.Check != None:
 	Inds1 = []
 	Inds2 = []
@@ -22,8 +24,8 @@ if args.Check != None:
 	
 	for ind in Inds1:
 		if ind in Inds2:
-			print (ind, "<---", "Duplicate individual", sep="\t")#, file=o)
+			print (ind, "<---", "Duplicate individual", sep="\t", file=o)
 			c+=1
-	print ("#Duplicate individual check finished. ", c, " duplicate individuals found.", sep="")#, file =o)
+	print ("#Duplicate individual check finished. ", c, " duplicate individuals found.", sep="", file =o)
 	sys.exit(0)
 
