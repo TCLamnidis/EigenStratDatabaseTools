@@ -24,7 +24,7 @@ if args.Check != None:
 	
 	for ind in Inds1:
 		if ind in Inds2:
-			print (ind, "<---", "Duplicate individual", sep="\t", file=o)
+			print ("{:25s}".format(ind), "<---", "Duplicate individual", sep="\t", file=o)
 			c+=1
 	print ("#Duplicate individual check finished. ", c, " duplicate individuals found.", sep="", file =o)
 	sys.exit(0)
