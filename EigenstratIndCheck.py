@@ -2,7 +2,7 @@
 
 import sys, argparse
 
-parser = argparse.ArgumentParser(usage="%(prog)s <functional argument> <ouput target argument>" , description="Extract the frequency of shared rare variants between each test sample/group and all reference samples/groups from a freqsum file.")
+parser = argparse.ArgumentParser(usage="%(prog)s <functional argument> <ouput target argument>" , description="Check two EigenStrat databases for duplicate individuals. Extract or expunge individuals from an EigenStrat database.")
 parser.add_argument("-i", "--Input", type=argparse.FileType('r'), metavar="<INPUT FILES PREFIX>", required=True)
 parser.add_argument("-c", "--Check", type=argparse.FileType('r'), metavar="<INPUT FILE>", required=False)
 
