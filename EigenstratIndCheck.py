@@ -3,6 +3,7 @@
 import sys, argparse, sh
 
 parser = argparse.ArgumentParser(usage="%(prog)s (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] <ouput target argument>" , description="Check two EigenStrat databases for duplicate individuals. Extract or remove individuals from an EigenStrat database.")
+parser._optionals.title = "Available options"
 parser.add_argument("-i", "--Input", type=str, metavar="<INPUT FILES PREFIX>", required=True, help="The desired input file prefix. Input files are assumed to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and <INPUT PREFIX>.ind .")
 group = parser.add_mutually_exclusive_group(required=True)
 group2 = parser.add_mutually_exclusive_group(required=False)
