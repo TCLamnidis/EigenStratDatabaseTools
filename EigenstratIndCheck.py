@@ -22,10 +22,6 @@ if args.Extract is True or args.Remove is True:
 IndFile = open(args.Input+".ind", "r")
 GenoFile = open(args.Input+".geno", "r")
 SnpFile = open(args.Input+".snp", "r")
-o = sys.stdout
-IndOutFile = open(args.Output+".ind", "w")
-GenoOutFile = open(args.Output+".geno", "w")
-SnpOutFile = open(args.Output+".snp", "w")
 
 
 #Check function
@@ -43,9 +39,9 @@ if args.Check != None:
 	
 	for ind in Inds1:
 		if ind in Inds2:
-			print ("{:25s}".format(ind), "<---", "Duplicate individual", sep="\t", file=o)
+			print ("{:25s}".format(ind), "<---", "Duplicate individual", sep="\t", file=sys.stdout)
 			c+=1
-	print ("#Duplicate individual check finished.", c, "duplicate individuals found.", sep=" ", file =o)
+	print ("#Duplicate individual check finished.", c, "duplicate individuals found.", sep=" ", file =sys.stdout)
 	sys.exit(0)
 
 #Check for errors in input files
@@ -62,8 +58,6 @@ for line in sh.grep(sh.wc("-l", args.Input+".geno", args.Input+".snp"), args.Inp
 ##Check geno and ind compatibility
 with open(args.Input+".geno", "r") as f:
 	for line in f:
-		print (len(line.strip()))
-		print(str(sh.wc("-l", args.Input+".ind")).strip().split()[0])
 		if str(len(line.strip())) == sh.wc("-l", args.Input+".ind").strip().split()[0]:
 			break
 		else:
@@ -81,7 +75,6 @@ if args.Sample != None:
 	for i in args.Sample:
 		if i not in Samples:
 			Samples.append(i)
-print (Samples)
 
 if args.Remove == True:
 	print ("Detected", len(Samples), "individuals for REMOVAL.", sep=" ", file=sys.stderr)
@@ -102,6 +95,10 @@ for i in Samples:
 
 print ("Indexed", len(Index), "individuals.", sep =" ", file=sys.stderr)
 
+IndOutFile = open(args.Output+".ind", "w")
+GenoOutFile = open(args.Output+".geno", "w")
+SnpOutFile = open(args.Output+".snp", "w")
+
 #Extract function
 if args.Extract == True:
 	for line in GenoFile:
@@ -118,6 +115,7 @@ if args.Extract == True:
 	
 	for line in SnpFile:
 		print (line, end="", file =SnpOutFile)
+	print ("Extraction of ", len(Index)," individuals complete.", sep="", file=sys.stderr)
 	sys.exit(0)
 
 #Remove function
@@ -139,5 +137,6 @@ if args.Remove == True:
 
 	for line in SnpFile:
 		print (line, end="", file=SnpOutFile)
+	print ("Removal of ", len(Index)," individuals complete.", sep="", file=sys.stderr)
 	sys.exit(0)
 
