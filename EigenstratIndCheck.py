@@ -100,9 +100,6 @@ for i in Samples:
 			Sex [fields[1]]=fields[2]
 			Pop [fields[1]]=fields[3]
 
-print (Pop)
-print (Sex)
-print (Index)
 print ("Indexed", len(Index), "individuals.", sep =" ", file=sys.stderr)
 
 #Extract function
@@ -114,7 +111,6 @@ if args.Extract == True:
 				print (fields[Index[i]], end="", file=GenoOutFile)
 		print("",file=GenoOutFile)
 	
-	print ("\nIND FILE")
 	for i in Samples:
 		try: print (i, Sex[i], Pop[i], sep="\t", file=IndOutFile)
 		except KeyError:
@@ -125,26 +121,23 @@ if args.Extract == True:
 	sys.exit(0)
 
 #Remove function
-#
-# if args.Remove == True:
-# 	for line in GenoFile:
-# 		fields=line.strip()
-# 		for i in range(len(fields)):
-# 			if i in Index.values():
-# 				continue
-# 			else:
-# 			print (fieldsi], end="", file=GenoOutFile)
-# 		print("",file=GenoOutFile)
-#
-# 	print ("\nIND FILE")
-# 	for i in Samples:
-# 		try: print (i, Sex[i], Pop[i], sep="\t", file=IndOutFile)
-# 		except KeyError:
-# 			print ("Individual \"",i,"\" not found in ",args.Input+".ind file.", sep="", file=sys.stderr)
-#
-# 	for line in SnpFile:
-# 		print (line, end="", file =SnpOutFile)
-# 	sys.exit(0)
-#
+if args.Remove == True:
+	for line in GenoFile:
+		fields=line.strip()
+		for i in range(len(fields)):
+			if i in Index.values():
+				continue
+			else:
+				print (fields[i], end="", file=GenoOutFile)
+		print("",file=GenoOutFile)
 
+	for line in IndFile:
+		fields=line.strip().split()
+		if fields[0] not in Samples:
+			print (line, end="", file=IndOutFile)
+
+
+	for line in SnpFile:
+		print (line, end="", file=SnpOutFile)
+	sys.exit(0)
 
