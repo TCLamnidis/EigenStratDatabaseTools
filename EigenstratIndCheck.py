@@ -2,10 +2,10 @@
 
 import sys, argparse, sh
 
-parser = argparse.ArgumentParser(usage="%(prog)s (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] <ouput target argument>" , description="Check two EigenStrat databases for duplicate individuals. Extract or remove individuals from an EigenStrat database.")
+parser = argparse.ArgumentParser(usage="%(prog)s (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] [-o <OUTPUT FILE PREFIX>]" , description="Check two EigenStrat databases for duplicate individuals. Extract or remove individuals from an EigenStrat database.")
 parser._optionals.title = "Available options"
 parser.add_argument("-i", "--Input", type=str, metavar="<INPUT FILES PREFIX>", required=True, help="The desired input file prefix. Input files are assumed to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and <INPUT PREFIX>.ind .")
-parser.add_argument("-o", "--Output", type=str, metavar="<OUTPUT FILES PREFIX>", required=True, help="The desired output file prefix. Three output files are created, <OUTPUT FILES PREFIX>.geno , <OUTPUT FILES PREFIX>.snp and <OUTPUT FILES PREFIX>.ind .")
+parser.add_argument("-o", "--Output", type=str, metavar="<OUTPUT FILES PREFIX>", required=False, help="The desired output file prefix. Three output files are created, <OUTPUT FILES PREFIX>.geno , <OUTPUT FILES PREFIX>.snp and <OUTPUT FILES PREFIX>.ind .")
 group = parser.add_mutually_exclusive_group(required=True)
 group2 = parser.add_mutually_exclusive_group(required=False)
 group.add_argument("-C", "--Check", type=argparse.FileType('r'), metavar="<INPUT FILE>", required=False, help="Check the -i .ind file and the second .ind file for duplicate individuals. Population assignment and/or individual sex are not checked, only individual names. Names are case sensitive.")
@@ -18,6 +18,10 @@ args = parser.parse_args()
 if args.Extract is True or args.Remove is True:
 	if args.SampleList is None and args.Sample is None:
 		parser.error("Sample (-S) or SampleList (-L) required for -R/-E functions.")
+
+if args.Extract is True or args.Remove is True:
+	if args.Output is None:
+		parser.error("Output files (-o) must be specified when using -R/-E functions")
 
 IndFile = open(args.Input+".ind", "r")
 GenoFile = open(args.Input+".geno", "r")
