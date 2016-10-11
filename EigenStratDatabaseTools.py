@@ -131,10 +131,16 @@ sorted_indx = tuple(sorted(Temp))
 if args.Remove == True:
 	for line in GenoFile:
 		count=0
+		repeat=0
 		fields=line.strip()
-		for i in sorted_indx:
-			print (fields[count:i], end="", file=GenoOutFile)
-			count=i
+		for i in range(len(sorted_indx)+1):
+			if repeat == len(sorted_indx):
+				print (fields[count:], end = "", file=GenoOutFile)
+				break
+			else:
+				print (fields[count:sorted_indx[i]], end="", file=GenoOutFile)
+			count=sorted_indx[i]+1
+			repeat += 1
 		print("",file=GenoOutFile)
 
 	for line in IndFile:
