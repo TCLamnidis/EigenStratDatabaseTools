@@ -123,14 +123,18 @@ if args.Extract == True:
 	sys.exit(0)
 
 #Remove function
+Temp = []
+for i in Samples:
+	Temp.append(Index[i])
+sorted_indx = tuple(sorted(Temp))
+
 if args.Remove == True:
 	for line in GenoFile:
+		count=0
 		fields=line.strip()
-		for i in range(len(fields)):
-			if i in Index.values():
-				continue
-			else:
-				print (fields[i], end="", file=GenoOutFile)
+		for i in sorted_indx:
+			print (fields[count:i], end="", file=GenoOutFile)
+			count=i
 		print("",file=GenoOutFile)
 
 	for line in IndFile:
