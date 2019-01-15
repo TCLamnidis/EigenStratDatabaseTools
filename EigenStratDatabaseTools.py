@@ -123,10 +123,7 @@ if args.Extract == True:
 	sys.exit(0)
 
 #Remove function
-Temp = []
-for i in Samples:
-	Temp.append(Index[i])
-sorted_indx = tuple(sorted(Temp))
+sorted_indx = tuple(sorted(Index.values()))
 
 if args.Remove == True:
 	for line in GenoFile:
