@@ -2,7 +2,7 @@
 A tool to check two different EingenStrat databses for shared individuals, and extract or remove individuals from an EigenStrat database.
 
 ```
-usage: EigenStratDatabaseTools.py (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] [-o <OUTPUT FILE PREFIX>]
+usage: eigenstrat_database_tools.py (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] [-o <OUTPUT FILE PREFIX>]
 
 A tool to check two different EingenStrat databses for shared individuals, and
 extract or remove individuals from an EigenStrat database.
@@ -17,6 +17,11 @@ Available options:
                         The desired output file prefix. Three output files are
                         created, <OUTPUT FILES PREFIX>.geno , <OUTPUT FILES
                         PREFIX>.snp and <OUTPUT FILES PREFIX>.ind .
+  -s <INPUT FILE SUFFIX>, --Suffix <INPUT FILE SUFFIX>
+                        The suffix (if any) that follows .geno/.snp/.ind in
+                        the input files. For example, specifying '-s .txt'
+                        will treat <INPUT PREFIX>.{geno,snp,ind}.txt as the
+                        desired input files.
   -C <INPUT FILE>, --Check <INPUT FILE>
                         Check the -i .ind file and the second .ind file for
                         duplicate individuals. Population assignment and/or
@@ -37,4 +42,34 @@ Available options:
                         A samples to be Extracted (-E) or Removed (-R) from
                         the database. Can be called multiple times. Required
                         with -E or -R. Mutually exclusive with -L.
-                        ```
+  -v, --version         Print the version and exit.
+
+```
+---
+# Eigenstrat SNP Coverage
+A tool to calculate the numbered of covered and total reads for each individual in an EigenStrat dataset. 
+```
+usage: eigenstrat_snp_coverage.py (-i <Input file prefix>) [-s <Input file suffix>] [-o <Output filepath>] [-j | --json]
+
+A tool to check two different EingenStrat databses for shared individuals, and
+extract or remove individuals from an EigenStrat database.
+
+Available options:
+  -h, --help            show this help message and exit
+  -i <INPUT FILES PREFIX>, --Input <INPUT FILES PREFIX>
+                        The desired input file prefix. Input files are assumed
+                        to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and
+                        <INPUT PREFIX>.ind .
+  -s <INPUT FILE SUFFIX>, --Suffix <INPUT FILE SUFFIX>
+                        The suffix (if any) that follows .geno/.snp/.ind in
+                        the input files. For example, specifying '-s .txt'
+                        will treat <INPUT PREFIX>.{geno,snp,ind}.txt as the
+                        desired input files.
+  -o <OUTPUT FILEPATH>, --Output <OUTPUT FILEPATH>
+                        The filepath where the output table should be saved.
+                        Omit to print to stdout.
+  -j, --json            Create additional json formatted output file named
+                        <OUTPUT FILE>.json . [Default: '<INPUT FILES
+                        PREFIX>_eigenstrat_coverage_mqc.json']
+  -v, --version         Print the version and exit.
+```
