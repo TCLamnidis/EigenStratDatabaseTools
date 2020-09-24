@@ -2,6 +2,8 @@
 
 import sys, argparse, sh
 
+VERSION = "1.0.0"
+
 parser = argparse.ArgumentParser(usage="%(prog)s (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] [-o <OUTPUT FILE PREFIX>]" , description="A tool to check two different EingenStrat databses for shared individuals, and extract or remove individuals from an EigenStrat database.")
 parser._optionals.title = "Available options"
 parser.add_argument("-i", "--Input", type=str, metavar="<INPUT FILES PREFIX>", required=True, help="The desired input file prefix. Input files are assumed to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and <INPUT PREFIX>.ind .")
@@ -13,6 +15,7 @@ group.add_argument("-E", "--Extract", action="store_true", required=False,help="
 group.add_argument("-R", "--Remove", action="store_true", required=False,help="Remove the selected individuals from the EigenStrat database, creating a new set of EigenStrat files without the selected individuals.")
 group2.add_argument("-L", "--SampleList", type=argparse.FileType('r'), metavar="<INDIVIDUAL LIST FILE>", required=False, help="A list of samples to be Extracted (-E) or Removed (-R) from the database. Can be a list of individual names (1 per line), or the output of duplicate check (-C). Required with -E or -R. Mutually exclusive with -S.")
 group2.add_argument("-S", "--Sample", action="append", metavar="<INDIVIDUAL>", required=False, help="A samples to be Extracted (-E) or Removed (-R) from the database. Can be called multiple times. Required with -E or -R. Mutually exclusive with -L.")
+parser.add_argument("-v", "--version", action='version', version="%(prog)s {}".format(VERSION), help="Print the version and exit.")
 args = parser.parse_args()
 
 if args.Extract is True or args.Remove is True:
