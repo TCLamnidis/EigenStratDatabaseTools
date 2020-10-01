@@ -54,18 +54,13 @@ parser.add_argument("-j", "--json", action = "store_true", help = "Create additi
 parser.add_argument("-v", "--version", action='version', version="%(prog)s {}".format(VERSION), help="Print the version and exit.")
 args = parser.parse_args()
 
-## Print version and exit
-if args.version:
-    print(VERSION, file=sys.stderr)
-    sys.exit(0)
-
 ## Set dynamic output files
 if args.Output ==  None:
   out_file = sys.stdout
   if args.json:
     json_output = args.Input+'_eigenstrat_coverage.json'
 else:
-  out_file = args.Output
+  out_file = open(args.Output, 'w')
   if args.json:
     json_output = args.Output+'.json'
 
