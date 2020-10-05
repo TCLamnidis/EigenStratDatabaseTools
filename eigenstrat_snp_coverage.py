@@ -4,7 +4,7 @@ import argparse,json, sys
 import pandas as pd
 from collections import OrderedDict
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 ## A function to return the number of lines of a file
 def file_len(fname):
@@ -50,19 +50,20 @@ parser._optionals.title = "Available options"
 parser.add_argument("-i", "--Input", type = str, metavar = "<INPUT FILES PREFIX>", required = True, help = "The desired input file prefix. Input files are assumed to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and <INPUT PREFIX>.ind .")
 parser.add_argument("-s", "--Suffix", type = str, metavar = "<INPUT FILE SUFFIX>", required = False, default = '', help = "The suffix (if any) that follows .geno/.snp/.ind in the input files. For example, specifying '-s .txt' will treat <INPUT PREFIX>.{geno,snp,ind}.txt as the desired input files.")
 parser.add_argument("-o", "--Output", type = str, metavar = "<OUTPUT FILEPATH>", required = False, help = "The filepath where the output table should be saved. Omit to print to stdout.")
-parser.add_argument("-j", "--json", action = "store_true", help = "Create additional json formatted output file named <OUTPUT FILE>.json . [Default: '<INPUT FILES PREFIX>_eigenstrat_coverage_mqc.json']")
+parser.add_argument("-j", "--json", type = str, metavar = "<JSON OUTPUT FILEPATH>", default = None, help = "Create additional json formatted output file named <JSON OUTPUT FILEPATH> .")
 parser.add_argument("-v", "--version", action='version', version="%(prog)s {}".format(VERSION), help="Print the version and exit.")
 args = parser.parse_args()
 
 ## Set dynamic output files
 if args.Output ==  None:
   out_file = sys.stdout
-  if args.json:
-    json_output = args.Input+'_eigenstrat_coverage.json'
 else:
   out_file = open(args.Output, 'w')
-  if args.json:
-    json_output = args.Output+'.json'
+
+if args.json == None:
+  json_output = None
+else:
+  json_output = args.json
 
 ## Initialise empty data table as dictionary
 data = {}
@@ -94,7 +95,7 @@ print ("#Sample", "#SNPs_Covered", "#SNPs_Total", sep="\t", file=out_file)
 for ind in ind_list:
   print(ind, data[ind]["Covered_Snps"], data[ind]["Total_Snps"], sep="\t", file=out_file)
 
-if args.json:
+if json_output != None:
   with open(json_output, 'w') as json_outfile:
     json.dump(data, json_outfile)
   
