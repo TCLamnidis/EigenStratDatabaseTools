@@ -4,7 +4,7 @@ import argparse,json, sys
 import pandas as pd
 from collections import OrderedDict
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 ## A function to return the number of lines of a file
 def file_len(fname):
