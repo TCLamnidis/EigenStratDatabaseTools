@@ -2,7 +2,7 @@
 
 import sys, argparse, sh
 
-VERSION = "1.0.0"
+VERSION = "1.0.2"
 
 parser = argparse.ArgumentParser(usage="%(prog)s (-i <Input file prefix>) (-c <input ind file> | -R | -E) [-L <SAMPLE LIST> | -S Ind [-S Ind2]] [-o <OUTPUT FILE PREFIX>]" , description="A tool to check two different EingenStrat databses for shared individuals, and extract or remove individuals from an EigenStrat database.")
 parser._optionals.title = "Available options"
