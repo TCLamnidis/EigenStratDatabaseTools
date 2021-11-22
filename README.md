@@ -1,3 +1,10 @@
+# Dependencies
+ - python 3.0 or newer  
+ - The following python packages installed: `sh`, `argparse`, `pandas`. These can be installed using pip:
+```
+pip install sh argparse pandas
+```
+
 # Eigenstrat Database Tools
 A tool to check two different EingenStrat databses for shared individuals, and extract or remove individuals from an EigenStrat database.
 
@@ -48,6 +55,7 @@ Available options:
 ---
 # Eigenstrat SNP Coverage
 A tool to calculate the numbered of covered and total reads for each individual in an EigenStrat dataset. 
+
 ```
 usage: eigenstrat_snp_coverage.py (-i <Input file prefix>) [-s <Input file suffix>] [-o <Output filepath>] [-j | --json]
 
