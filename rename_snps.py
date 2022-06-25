@@ -11,11 +11,11 @@ def read_line(line, format):
         (chrom, id, _, pos) = fields[:4]
     return (chrom+"_"+pos, id)
 
-parser = argparse.ArgumentParser(usage="%(prog)s (-i <input .snp file>) (-n <named snp file>) [-f <named file format>]" , description="Rename the SNPs in an eigenstrat snp file based on a reference eigenstrat or plink snp file. Uses the genetic coordinate of SNPs to determine identity.")
+parser = argparse.ArgumentParser(usage="%(prog)s (-i <INPUT .SNP FILE>) (-n <NAMED SNP FILE>) [-f <NAMED FILE FORMAT>]" , description="Rename the SNPs in an eigenstrat snp file based on a reference eigenstrat or plink snp file. Uses the genetic coordinate of SNPs to determine identity.")
 parser._optionals.title = "Available options"
-parser.add_argument("-i", "--Input", type=str, metavar="<input .snp file>", required=True, help="The input snp file.")
-parser.add_argument("-n", "--Name_file", type=str, metavar="<named snp file>", required=True, help="An Eigenstrat or plink formatted snp file with the desired SNP names.")
-parser.add_argument("-f", "--Format", type=str, default="EIGENSTRAT", metavar="<named file format>", required=False, help="The format of the desired snp name file. Can be either 'EIGENSTRAT' or 'PLINK' [default: EIGENSTRAT]")
+parser.add_argument("-i", "--Input", type=str, metavar="<INPUT .SNP FILE>", required=True, help="The input snp file.")
+parser.add_argument("-n", "--Name_file", type=str, metavar="<NAMED SNP FILE>", required=True, help="An Eigenstrat or plink formatted snp file with the desired SNP names.")
+parser.add_argument("-f", "--Format", type=str, default="EIGENSTRAT", metavar="<NAMED FILE FORMAT>", required=False, help="The format of the desired snp name file. Can be either 'EIGENSTRAT' or 'PLINK' [default: EIGENSTRAT]")
 parser.add_argument("-v", "--version", action='version', version="%(prog)s {}".format(VERSION), help="Print the version and exit.")
 args = parser.parse_args()
 
