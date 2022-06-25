@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import sys,argparse
 
-VERSION='0.0.1'
+VERSION='1.1.0'
 
 def read_line(line, format):
     fields=line.strip().split()

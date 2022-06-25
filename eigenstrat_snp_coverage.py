@@ -4,7 +4,7 @@ import argparse,json, sys
 import pandas as pd
 from collections import OrderedDict
 
-VERSION = "1.0.2"
+VERSION = "1.1.0"
 
 ## A function to return the number of lines of a file
 def file_len(fname):
@@ -47,8 +47,9 @@ def get_ind_names(indf):
 
 parser = argparse.ArgumentParser(usage = "%(prog)s (-i <Input file prefix>) [-s <Input file suffix>] [-o <Output filepath>] [-j | --json]" , description = "A tool to check two different EingenStrat databses for shared individuals, and extract or remove individuals from an EigenStrat database.")
 parser._optionals.title = "Available options"
-parser.add_argument("-i", "--Input", type = str, metavar = "<INPUT FILES PREFIX>", required = True, help = "The desired input file prefix. Input files are assumed to be <INPUT PREFIX>.geno, <INPUT PREFIX>.snp and <INPUT PREFIX>.ind .")
-parser.add_argument("-s", "--Suffix", type = str, metavar = "<INPUT FILE SUFFIX>", required = False, default = '', help = "The suffix (if any) that follows .geno/.snp/.ind in the input files. For example, specifying '-s .txt' will treat <INPUT PREFIX>.{geno,snp,ind}.txt as the desired input files.")
+parser.add_argument("-g", "--genoFn", type = str, metavar = "<GENO FILE NAME>", required = True, help = "The path to the input geno file.")
+parser.add_argument("-s", "--snpFn", type = str, metavar = "<SNP FILE NAME>", required = True, help = "The path to the input snp file.")
+parser.add_argument("-i", "--indFn", type = str, metavar = "<IND FILE NAME>", required = True, help = "The path to the input ind file.")
 parser.add_argument("-o", "--Output", type = str, metavar = "<OUTPUT FILEPATH>", required = False, help = "The filepath where the output table should be saved. Omit to print to stdout.")
 parser.add_argument("-j", "--json", type = str, metavar = "<JSON OUTPUT FILEPATH>", default = None, help = "Create additional json formatted output file named <JSON OUTPUT FILEPATH> .")
 parser.add_argument("-v", "--version", action='version', version="%(prog)s {}".format(VERSION), help="Print the version and exit.")
@@ -71,9 +72,9 @@ data = {}
 data['Metadata'] = {'tool_name' : "EigenStratSnpCoverage.py", "version" : VERSION}
 
 ## Get input file paths
-genof = args.Input+".geno"+args.Suffix
-snpf = args.Input+".snp"+args.Suffix
-indf = args.Input+".ind"+args.Suffix
+genof = args.genoFn
+snpf = args.snpFn
+indf = args.indFn
   
 ## Perform checks on Eigenstrat dataset
 validate_eigenstrat(genof, snpf, indf)
