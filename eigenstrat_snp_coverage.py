@@ -84,17 +84,20 @@ ind_list,num_inds = get_ind_names(indf)
 
 ## Add entries for the individuals in data table
 for ind in ind_list:
-  data[ind]={"Covered_Snps":0, "Total_Snps":file_len(snpf)}
+  data[ind]={"Covered_Snps":0, "Total_Snps":file_len(snpf), "Coverage_Ratio":0}
 
 ## Read in the genotype matrix (in chunks) and count non-missing calls per individual to add to data table
 for genotypes in pd.read_fwf(genof, widths = [1 for _ in range(num_inds)], max_rows=10, names=ind_list, header = None, chunksize=250000):
   for ind in ind_list:
     data[ind]["Covered_Snps"]+=sum(genotypes[ind]!=9)
-
+    
+## Calculate the SNP coverage ratio
+    data["Coverage_Ratio"] = data["Covered_Snps"]/data["Total_Snps"]
+    
 ## Print output and dump json
-print ("#Sample", "#SNPs_Covered", "#SNPs_Total", sep="\t", file=out_file)
+print ("#Sample", "#SNPs_Covered", "#SNPs_Total", "#Coverage_Ratio", sep="\t", file=out_file)
 for ind in ind_list:
-  print(ind, data[ind]["Covered_Snps"], data[ind]["Total_Snps"], sep="\t", file=out_file)
+  print(ind, data[ind]["Covered_Snps"], data[ind]["Total_Snps"], data[ind]["Coverage_Ratio"], sep="\t", file=out_file)
 
 if json_output != None:
   with open(json_output, 'w') as json_outfile:
